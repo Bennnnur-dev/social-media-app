@@ -1,75 +1,83 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Colors } from "@/constants/colors";
+import useContextSnippet from "@/hooks/useContextSnippet";
+import createStyles from "@/styles/dashboard.styles";
+import { Redirect } from "expo-router";
+import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const stories = [
+  { id: "1", name: "Your Story", image: require("@/assets/images/services-thum.jpg") },
+  { id: "2", name: "jaded.ele...", image: require("@/assets/images/lol.avif") },
+  { id: "3", name: "pia.in.a.pod", image: require("@/assets/images/lol.avif") },
+  { id: "4", name: "lil_wyatt838", image: require("@/assets/images/lol.avif") },
+];
 
-export default function HomeScreen() {
+const posts = [
+  {
+    id: "1",
+    user: "heaven.is.nevaeh",
+    image: require("@/assets/images/services-thum.jpg"),
+    caption: "Your favorite duo 💕",
+    likes: ["kyia_kayaks"],
+  },
+  {
+    id: "2",
+    user: "heaven.is.nevaeh",
+    image: require("@/assets/images/services-thum.jpg"),
+    caption: "Your favorite duo 💕",
+    likes: ["kyia_kayaks"],
+  },
+];
+
+export default function Index() {
+  const { context, error } = useContextSnippet();
+  if (error) return <Redirect href={`/(utils)/Error?errMsg=${error}`} />;
+
+  const colors = context?.getColors();
+  const styles = createStyles(colors as Colors);
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <View style={styles.header}>
+        <Text style={styles.logo}>Pour vous</Text>
+        <View style={styles.headerIcons}>
+          <Icon name="heart-outline" style={styles.icon} size={30} />
+          <Icon name="send-outline" style={styles.icon} size={30} />
+        </View>
+      </View>
+
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={stories}
+        keyExtractor={item => item.id}
+        style={styles.stories}
+        renderItem={({ item }) => (
+          <View style={styles.storyItem}>
+            <Image source={item.image} style={styles.storyImage} />
+            <Text style={styles.storyName}>{item.name}</Text>
+          </View>
+        )}
+      />
+
+      {posts.map(post => (
+        <View key={post.id} style={styles.postCard}>
+          <View style={styles.postHeader}>
+            <Image source={post.image} style={styles.profilePic} />
+            <Text style={styles.username}>{post.user}</Text>
+          </View>
+          <Image source={post.image} style={styles.postImage} />
+          <View style={styles.actionsRow}>
+            <Icon name="heart-outline" style={styles.icon} size={25} />
+            <Icon name="comment-outline" style={styles.icon} size={25} />
+            <Icon name="send-outline" style={styles.icon} size={25} />
+          </View>
+          <Text style={styles.likes}>Liked by {post.likes[0]} and others</Text>
+          <Text style={styles.caption}>
+            <Text style={styles.username}>{post.user} </Text>
+            {post.caption}
+          </Text>
+        </View>
+      ))}
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

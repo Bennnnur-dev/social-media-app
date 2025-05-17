@@ -33,6 +33,12 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "InstaWish partage vos photos pour que vous puissez les partager avec vos amis"
+        }
       ]
     ],
     "experiments": {
