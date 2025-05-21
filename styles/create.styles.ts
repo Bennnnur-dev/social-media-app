@@ -8,7 +8,7 @@ export default function createStyles(colors: Colors) {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#000",
+      backgroundColor: colors.primary,
     },
     header: {
       height: 50,
@@ -18,18 +18,18 @@ export default function createStyles(colors: Colors) {
       justifyContent: "space-between",
     },
     headerText: {
-      color: "white",
+      color: colors.text,
       fontSize: 16,
       fontWeight: "600",
     },
     nextText: {
-      color: "#007AFF",
+      color: colors.ternary,
       fontWeight: "600",
     },
     previewContainer: {
       width: "100%",
       height: width,
-      backgroundColor: "#222",
+      backgroundColor: colors.secondary,
     },
     previewImage: {
       width: "100%",
@@ -37,7 +37,7 @@ export default function createStyles(colors: Colors) {
     },
     bottomSheet: {
       flex: 1,
-      backgroundColor: "#111",
+      backgroundColor: colors.primary,
       paddingTop: 12,
       paddingHorizontal: 12,
     },
@@ -48,7 +48,7 @@ export default function createStyles(colors: Colors) {
       marginBottom: 8,
     },
     label: {
-      color: "white",
+      color: colors.text,
       fontSize: 16,
       fontWeight: "500",
     },
@@ -74,7 +74,7 @@ export default function createStyles(colors: Colors) {
     },
     focused: {
       borderWidth: 3,
-      borderColor: colors.text,
+      borderColor: colors.ternary,
     },
   });
 }

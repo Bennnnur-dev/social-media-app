@@ -1,11 +1,12 @@
-import { Colors } from "@/constants/colors";
+import { type Colors } from "@/constants/colors";
+import useAsyncStorage from "@/hooks/useAsyncStorage";
 import useContextSnippet from "@/hooks/useContextSnippet";
 import useImageUpload from "@/hooks/useImageUpload";
 import createStyles from "@/styles/create.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { ImagePickerAsset } from "expo-image-picker";
 import { Redirect, router } from "expo-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Alert, FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 
 export default function ImageDropdownScreen() {
@@ -15,9 +16,18 @@ export default function ImageDropdownScreen() {
   const colors = context?.getColors() as Colors;
   const styles = createStyles(colors);
 
+  const { setAsyncStorage, getAsyncStorage } = useAsyncStorage();
+
   const [images, setImages] = useState<ImagePickerAsset[] | null>(null);
   const [focusedImage, setFocusedImage] = useState<ImagePickerAsset | null>(null);
   const focusedChildImage = useRef<number | null>(null);
+
+  useEffect(() => {
+    getAsyncStorage("SELECTED_PHOTOS").then(data => {
+      if (data.status === "failure") return Alert.alert("Erreur :(", data.result as string);
+      setImages(data.result);
+    });
+  }, []);
 
   async function pickImages() {
     const images = await useImageUpload();
@@ -25,6 +35,7 @@ export default function ImageDropdownScreen() {
       return Alert.alert("Erreur :(", images.result as string);
     }
     setImages(images.result);
+    setAsyncStorage("SELECTED_PHOTOS", images.result);
   }
 
   function setMainImage(image: ImagePickerAsset, index: number) {
@@ -36,16 +47,21 @@ export default function ImageDropdownScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.push("/")}>
-          <Ionicons name="close" size={28} color="white" />
+          <Ionicons name="close" size={28} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerText}>Nouvelle publication</Text>
-        <TouchableOpacity>
-          <Text style={styles.nextText}>Suivant</Text>
+        <TouchableOpacity
+          onPress={() => {
+            if (!focusedImage) return;
+            router.push(`/Edit?imgData=${JSON.stringify(focusedImage)}`);
+          }}
+        >
+          <Text style={[styles.nextText, !focusedImage && { opacity: 0.5 }]}>Suivant</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.previewContainer}>
-        <Image source={{ uri: focusedImage?.uri }} style={styles.previewImage} resizeMode="cover" />
+        <Image source={{ uri: focusedImage?.uri }} style={styles.previewImage} resizeMode="contain" />
       </View>
 
       <View style={styles.bottomSheet}>

@@ -2,7 +2,7 @@
 //adds dynamic and controlled error handling
 //allows to stop using try/catch blocks across all the project
 
-import { type ImagePickerSuccessResult } from "expo-image-picker";
+import { type ImagePickerAsset } from "expo-image-picker";
 
 type Failure = {
   status: "failure";
@@ -11,7 +11,7 @@ type Failure = {
 
 type Success = {
   status: "success";
-  result: (arg: any) => any | Promise<ImagePickerSuccessResult>;
+  result: (arg: any) => any | Promise<ImagePickerAsset[]>;
 };
 
 export type Result = Success | Failure;
@@ -21,7 +21,7 @@ export default async function asyncWrapper(callback: (arg: any) => any, data?: a
     return { status: "success", result: await callback(data) };
   } catch (err) {
     //firebase error
-    if (err instanceof Error && err.message.includes("/firebase")) {
+    if (err instanceof Error && err.message.includes("firebase")) {
       return { status: "failure", result: firebaseErrorParser(err.message) };
     }
 

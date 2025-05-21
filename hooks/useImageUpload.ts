@@ -4,8 +4,8 @@ import * as imagePicker from "expo-image-picker";
 export default async function useImageUpload(): Promise<Result> {
   return await asyncWrapper(async () => {
     const upload = await imagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images", "videos"],
-      aspect: [4, 3],
+      mediaTypes: ["images"],
+      aspect: [5, 3],
       quality: 1,
       allowsMultipleSelection: true,
     });
