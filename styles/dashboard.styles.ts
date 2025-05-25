@@ -37,7 +37,7 @@ export default function createStyles(colors: Colors) {
     storyImage: {
       width: 85,
       height: 85,
-      borderRadius: "50%",
+      borderRadius: 50,
       borderWidth: 3,
       borderColor: colors.ternary,
     },

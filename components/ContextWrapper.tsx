@@ -1,4 +1,4 @@
-import { type TextData } from "@/app/Edit";
+import { type TextData } from "@/app/(post)/Edit";
 import { type Colors } from "@/constants/colors";
 import useColorScheme, { type Theme } from "@/hooks/useColorScheme";
 import { createContext, useState } from "react";

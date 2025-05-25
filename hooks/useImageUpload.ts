@@ -10,7 +10,6 @@ export default async function useImageUpload(): Promise<Result> {
       allowsMultipleSelection: true,
     });
 
-    if (upload.canceled) throw new Error("Impossible de télécharger l'image. Essaye plus tard.");
     return upload.assets;
   });
 }

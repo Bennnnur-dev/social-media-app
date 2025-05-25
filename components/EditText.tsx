@@ -1,4 +1,4 @@
-import { type BoldIntensity, type TextData } from "@/app/Edit";
+import { type BoldIntensity, type TextData } from "@/app/(post)/Edit";
 import { type Colors } from "@/constants/colors";
 import useContextSnippet from "@/hooks/useContextSnippet";
 import createStyles from "@/styles/textEdit.styles";
@@ -18,7 +18,7 @@ export default function EditText({ textsArray, setTexts }: Prop) {
   const { context, error } = useContextSnippet();
   if (error || !context) return <Redirect href={`/(utils)/Error?errMsg=${error}`} />;
 
-  const { text, setIsEditingGlobal, setText } = context;
+  const { text, setIsEditingGlobal } = context;
 
   const colors = context.getColors() as Colors;
   const styles = createStyles(colors);
@@ -50,7 +50,7 @@ export default function EditText({ textsArray, setTexts }: Prop) {
       color: currentColor.current || "rgb(255, 255, 255)",
       boldIntensity: boldIntensity || 400,
       fontSize: "25",
-      backgroundShown: isBackgroundShown || true,
+      backgroundShown: isBackgroundShown || false,
       id: text!.id,
     };
     const newTexts = textsArray.map(currentText => (currentText.id !== finalText.id ? currentText : finalText));

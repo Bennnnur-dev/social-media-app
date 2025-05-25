@@ -15,14 +15,14 @@ export default function createStyles(colors: Colors) {
       justifyContent: "space-between",
       marginTop: 20,
     },
-    nextButton: {
-      backgroundColor: colors.ternary,
-      paddingVertical: 6,
-      paddingHorizontal: 14,
-      borderRadius: 20,
-    },
+    // nextButton: {
+    //   backgroundColor: colors.ternary,
+    //   paddingVertical: 6,
+    //   paddingHorizontal: 14,
+    //   borderRadius: 20,
+    // },
     nextText: {
-      color: "white",
+      color: colors.ternary,
       fontWeight: "600",
     },
     imageContainer: {
@@ -32,16 +32,24 @@ export default function createStyles(colors: Colors) {
     image: {
       width: "100%",
       height: "100%",
+      zIndex: 40,
     },
     foreground: {
       position: "absolute",
       width: "100%",
       height: "100%",
-      zIndex: 10,
+      zIndex: 50,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       overflow: "hidden",
+    },
+    background: {
+      backgroundColor: "gray",
+      width: "100%",
+      height: "100%",
+      zIndex: 30,
+      position: "absolute",
     },
     toolbar: {
       flexDirection: "row",
@@ -55,7 +63,7 @@ export default function createStyles(colors: Colors) {
       borderRadius: 10,
     },
     iconLabel: {
-      color: colors.ternary,
+      color: colors.text,
       fontSize: 25,
       fontWeight: "600",
     },

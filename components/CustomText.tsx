@@ -1,4 +1,4 @@
-import { type TextData } from "@/app/Edit";
+import { type TextData } from "@/app/(post)/Edit";
 import useContextSnippet from "@/hooks/useContextSnippet";
 import { Redirect } from "expo-router";
 import { useMemo } from "react";
@@ -59,6 +59,7 @@ export default function CustomText(prop: { text: TextData }) {
               backgroundColor: backgroundShown ? "rgba(0, 0, 0, 0.4)" : "rgba(0, 0, 0, 0)",
               paddingVertical: 10,
               paddingHorizontal: 60,
+              zIndex: 60,
             }}
           >
             {content}
