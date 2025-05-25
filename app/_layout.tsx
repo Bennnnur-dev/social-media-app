@@ -40,6 +40,19 @@ function App() {
                 headerBackButtonDisplayMode: "minimal",
               }}
             />
+            <Stack.Screen
+              name="(post)/Post"
+              options={{
+                title: "Publication",
+                headerStyle: {
+                  backgroundColor: colors.primary,
+                },
+                headerTintColor: colors.text,
+                headerBackButtonDisplayMode: "minimal",
+                headerTitleAlign: "center",
+                headerShadowVisible: false,
+              }}
+            />
             <Stack.Screen name="(post)/Edit" options={{ headerShown: false }} />
             <Stack.Screen
               name="(post)/FinalEdit"

@@ -2,7 +2,6 @@ import CustomText from "@/components/CustomText";
 import EditText from "@/components/EditText";
 import { type Colors } from "@/constants/colors";
 import useContextSnippet from "@/hooks/useContextSnippet";
-import useFirebaseStorage from "@/hooks/useFirebaseStorage";
 import normalizeUri from "@/scripts/normaliseUri";
 import captureImage from "@/scripts/viewShot";
 import createStyles from "@/styles/edit.styles";
@@ -47,8 +46,6 @@ export default function ImageEditScreen() {
   const colors = getColors() as Colors;
   const styles = createStyles(colors);
 
-  const { uploadImage } = useFirebaseStorage();
-
   const [texts, setTexts] = useState<TextData[]>([]);
   const viewRef = useRef<View>(null);
 
@@ -64,8 +61,6 @@ export default function ImageEditScreen() {
     if (img.status === "failure" || typeof img.result !== "string") {
       return router.push(`/Error?errMsg=There was an error creating the image`);
     }
-    console.log("BEFORE", img.result);
-    // await uploadImage(img.result as string);
     router.push({ pathname: "/FinalEdit", params: { imgData: img.result } });
   }
 

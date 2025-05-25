@@ -1,7 +1,7 @@
 import { ref, uploadBytes } from "firebase/storage";
 import { Platform } from "react-native";
-import { storage } from "../firebase.config";
-import asyncWrapper from "../scripts/asyncWrapper";
+import { storage } from "../../firebase.config";
+import asyncWrapper from "../../scripts/asyncWrapper";
 
 export default function useFirebaseStorage() {
   async function uploadImage(uri: string) {

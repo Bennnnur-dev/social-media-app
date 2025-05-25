@@ -15,12 +15,6 @@ export default function createStyles(colors: Colors) {
       justifyContent: "space-between",
       marginTop: 20,
     },
-    // nextButton: {
-    //   backgroundColor: colors.ternary,
-    //   paddingVertical: 6,
-    //   paddingHorizontal: 14,
-    //   borderRadius: 20,
-    // },
     nextText: {
       color: colors.ternary,
       fontWeight: "600",
