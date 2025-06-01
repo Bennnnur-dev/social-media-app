@@ -5,7 +5,7 @@ import asyncWrapper from "../../scripts/asyncWrapper";
 
 export default function useFirebaseStorage() {
   async function uploadImage(uri: string) {
-    return await asyncWrapper(async uri => {
+    return await asyncWrapper<void>(async uri => {
       if (!uri) throw new Error("Missing image URI");
 
       //fetches actual image data from its location (uri)

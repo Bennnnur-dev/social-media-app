@@ -2,7 +2,7 @@ import { type Colors } from "@/constants/colors";
 import useAsyncStorage from "@/hooks/useAsyncStorage";
 import useContextSnippet from "@/hooks/useContextSnippet";
 import useImageUpload from "@/hooks/useImageUpload";
-import createStyles from "@/styles/create.styles";
+import createStyles from "@/styles/tabsStyles/create.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { ImagePickerAsset } from "expo-image-picker";
 import { Redirect, router } from "expo-router";
@@ -26,7 +26,7 @@ export default function ImageDropdownScreen() {
   const focusedChildImage = useRef<number | null>(null);
 
   useEffect(() => {
-    getAsyncStorage("SELECTED_PHOTOS").then(data => {
+    getAsyncStorage<ImagePickerAsset[]>("SELECTED_PHOTOS").then(data => {
       if (data.status === "failure" || typeof data.result === "string")
         return Alert.alert("Erreur :(", data.result as string);
       setImages(data.result);

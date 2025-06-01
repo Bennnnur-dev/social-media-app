@@ -2,7 +2,7 @@ import { type TextData } from "@/app/(post)/Edit";
 import useContextSnippet from "@/hooks/useContextSnippet";
 import { Redirect } from "expo-router";
 import { useMemo } from "react";
-import { Dimensions, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 
@@ -13,8 +13,6 @@ export default function CustomText(prop: { text: TextData }) {
   const {
     text: { color, content, fontSize, boldIntensity, backgroundShown },
   } = prop;
-
-  const { width } = Dimensions.get("window");
 
   const offset = useSharedValue({ x: 0, y: 0 });
 

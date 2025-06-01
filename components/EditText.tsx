@@ -1,7 +1,7 @@
 import { type BoldIntensity, type TextData } from "@/app/(post)/Edit";
 import { type Colors } from "@/constants/colors";
 import useContextSnippet from "@/hooks/useContextSnippet";
-import createStyles from "@/styles/textEdit.styles";
+import createStyles from "@/styles/postStyles/textEdit.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { Redirect } from "expo-router";

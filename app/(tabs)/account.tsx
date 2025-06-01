@@ -1,6 +1,6 @@
 import { type Colors } from "@/constants/colors";
 import useContextSnippet from "@/hooks/useContextSnippet";
-import createStyles from "@/styles/account.styles";
+import createStyles from "@/styles/tabsStyles/account.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { Redirect, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";

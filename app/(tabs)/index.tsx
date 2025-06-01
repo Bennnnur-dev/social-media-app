@@ -1,6 +1,6 @@
 import { Colors } from "@/constants/colors";
 import useContextSnippet from "@/hooks/useContextSnippet";
-import createStyles from "@/styles/dashboard.styles";
+import createStyles from "@/styles/tabsStyles/dashboard.styles";
 import { Redirect } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { FlatList, Image, ScrollView, Text, View } from "react-native";
@@ -40,6 +40,7 @@ export default function Index() {
   const styles = createStyles(colors);
   return (
     <>
+      <Redirect href={"/(auth)/Login"} />
       <StatusBar style={theme === "dark" ? "light" : "dark"} />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>

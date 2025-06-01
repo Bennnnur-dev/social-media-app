@@ -1,6 +1,6 @@
 import defaultColors from "@/constants/colors";
 import useContextSnippet from "@/hooks/useContextSnippet";
-import createStyles from "@/styles/error.styles";
+import createStyles from "@/styles/utilsStyles/error.styles";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 import { StatusBar } from "expo-status-bar";

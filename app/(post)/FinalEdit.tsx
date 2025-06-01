@@ -1,20 +1,18 @@
+import LoadingView from "@/components/LoadingView";
 import { type Colors } from "@/constants/colors";
 import useFirebaseStorage from "@/hooks/firebase/useFirebaseStorage";
 import useFirestore from "@/hooks/firebase/useFirestore";
 import useContextSnippet from "@/hooks/useContextSnippet";
+import asyncMock from "@/scripts/asyncMock";
 import normalizeUri from "@/scripts/normaliseUri";
-import createStyles from "@/styles/finalEdit.styles";
+import createStyles from "@/styles/postStyles/finalEdit.styles";
+import { type Post } from "@/types";
 import { Redirect, router, useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useRef, useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Animated, { useSharedValue, withSpring, withTiming } from "react-native-reanimated";
-
-export type Post = {
-  title: string;
-  description: string;
-};
 
 export default function FinalEdit() {
   const { imgData } = useLocalSearchParams();
@@ -35,6 +33,7 @@ export default function FinalEdit() {
 
   const [titleText, setTitleText] = useState("");
   const [descText, setDescText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   //focus to input
   useEffect(() => {
@@ -54,21 +53,28 @@ export default function FinalEdit() {
     const post: Post = {
       title: titleText,
       description: descText,
+      likes: 0,
     };
     const data = await postToDB(post);
     if (data.status === "failure") return <Redirect href={`/(utils)/Error?errMsg=${data.result}`} />;
-    await uploadImage(imageUri);
 
-    router.push({ pathname: "/(tabs)/account" });
+    setIsLoading(true);
+    // await uploadImage(imageUri);
+    await asyncMock(3000);
+
+    setIsLoading(false);
+    router.replace({ pathname: "/(tabs)/account" });
   }
 
   return (
     <>
       <StatusBar style={theme === "dark" ? "light" : "dark"} />
 
+      {isLoading && <LoadingView loadingState={isLoading} loadingMessage="Publication..." />}
+
       <ScrollView style={styles.container}>
         <Image resizeMode="cover" source={{ uri: imageUri }} style={styles.image} />
-        {titleText && (
+        {titleText.trim() && !isLoading && (
           <Animated.View style={[styles.nextButtonContainer, { top: animatedPosition }]}>
             <TouchableOpacity style={styles.nextButton} onPress={publishPost}>
               <Text style={styles.nextText}>Publier</Text>
@@ -83,7 +89,6 @@ export default function FinalEdit() {
             placeholder="Ajoute un titre ici"
             style={styles.formInput}
             maxLength={50}
-            multiline
             onChangeText={setTitleText}
             value={titleText}
           />

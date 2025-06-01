@@ -4,7 +4,7 @@ import { type Colors } from "@/constants/colors";
 import useContextSnippet from "@/hooks/useContextSnippet";
 import normalizeUri from "@/scripts/normaliseUri";
 import captureImage from "@/scripts/viewShot";
-import createStyles from "@/styles/edit.styles";
+import createStyles from "@/styles/postStyles/edit.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { type ImagePickerAsset } from "expo-image-picker";
 import { Redirect, router } from "expo-router";
